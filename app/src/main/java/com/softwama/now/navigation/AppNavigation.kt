@@ -25,13 +25,12 @@ fun AppNavigation() {
                 },
                 onForgotPassword = {
                     navController.navigate(Screen.Olvidepass.route)
-                }
+                },
+
             )
         }
         composable(Screen.Olvidepass.route) {
-            OlvidepassScreen(navController=navController)
+            OlvidepassScreen(navController = navController)
         }
-
-
     }
 }
