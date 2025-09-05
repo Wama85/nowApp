@@ -2,4 +2,5 @@
     <string name="app_name">now</string>
     <string name="login_title">Login</string>
     <string name="inicio_sesion">Iniciar Sesión</string>
+    <string name="mensaje_recupera_pass">Ingrese su correo electrónico y le enviaremos un enlace para restablecer su contraseña</string>
 </resources>
