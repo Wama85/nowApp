@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">now</string>
+    <string name="login_title">Login</string>
+    <string name="inicio_sesion">Iniciar Sesión</string>
+</resources>
