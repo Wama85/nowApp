@@ -46,6 +46,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import com.softwama.now.R
+import com.softwama.now.common.components.WhatsAppScaffold
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
@@ -63,139 +65,140 @@ fun LoginScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        // Imagen de fondo
-        Image(
-            painter = painterResource(id = R.drawable.login),
-            contentDescription = "Fondo de login",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
+    WhatsAppScaffold {
+        Box(modifier = Modifier.fillMaxSize()) {
+            // Imagen de fondo
+            Image(
+                painter = painterResource(id = R.drawable.login),
+                contentDescription = "Fondo de login",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp),
-            verticalArrangement = Arrangement.Bottom // ✅ Cambiado a Bottom
-        ) {
-
-
-            // Card con el formulario - ahora estará en la parte inferior
-            Card(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f)
-                ),
-                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+                    .fillMaxSize()
+                    .padding(20.dp),
+                verticalArrangement = Arrangement.Bottom
             ) {
-                Column(
+                // Card con el formulario
+                Card(
                     modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                       .fillMaxWidth()
+                       // .size(width = 240.dp, height = 100.dp)
+                        .padding(horizontal = 10.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f)
+                    ),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+
                 ) {
-                    Text(
-                        text = stringResource(R.string.inicio_sesion),
-                        style = MaterialTheme.typography.headlineMedium,
-                        modifier = Modifier.padding(bottom = 35.dp)
-                    )
-
-                    OutlinedTextField(
-                        value = state.mail,
-                        onValueChange = { viewModel.onEvent(LoginEvent.UsernameChanged(it)) },
-                        label = { Text("Correo Electrónico") },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.surface,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-                            focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            cursorColor = MaterialTheme.colorScheme.primary,
-                            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                            unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = stringResource(R.string.inicio_sesion),
+                            style = MaterialTheme.typography.headlineMedium,
+                            modifier = Modifier.padding(bottom = 35.dp)
                         )
-                    )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        OutlinedTextField(
+                            value = state.mail,
+                            onValueChange = { viewModel.onEvent(LoginEvent.UsernameChanged(it)) },
+                            label = { Text("Correo Electrónico") },
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                cursorColor = MaterialTheme.colorScheme.primary,
+                                focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                                unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                            )
+                        )
 
-                    OutlinedTextField(
-                        value = state.password,
-                        onValueChange = { viewModel.onEvent(LoginEvent.PasswordChanged(it)) },
-                        label = { Text("Contraseña") },
-                        modifier = Modifier.fillMaxWidth(),
-                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.surface,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-                            focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                            cursorColor = MaterialTheme.colorScheme.primary,
-                            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
-                            unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                        ),
-                        trailingIcon = {
-                            val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
-                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                Icon(imageVector = image, contentDescription = "Toggle password visibility")
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        OutlinedTextField(
+                            value = state.password,
+                            onValueChange = { viewModel.onEvent(LoginEvent.PasswordChanged(it)) },
+                            label = { Text("Contraseña") },
+                            modifier = Modifier.fillMaxWidth(),
+                            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                cursorColor = MaterialTheme.colorScheme.primary,
+                                focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+                                unfocusedIndicatorColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                            ),
+                            trailingIcon = {
+                                val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                    Icon(imageVector = image, contentDescription = "Toggle password visibility")
+                                }
+                            }
+                        )
+
+                        // Checkbox de "Recordar contraseña"
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp),
+                        ) {
+                            Checkbox(
+                                checked = rememberMe,
+                                onCheckedChange = { rememberMe = it }
+                            )
+                            Text("Recordar contraseña")
+                        }
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        // Botón de iniciar sesión
+                        Button(
+                            onClick = { viewModel.onEvent(LoginEvent.Login) },
+                            modifier = Modifier.fillMaxWidth(),
+                            enabled = state.mail.isNotBlank() && !state.isLoading
+                        ) {
+                            if (state.isLoading) {
+                                CircularProgressIndicator(modifier = Modifier.size(20.dp))
+                            } else {
+                                Text(stringResource(R.string.inicio_sesion))
                             }
                         }
-                    )
 
-                    // Solo el checkbox de "Recordar contraseña"
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                    ) {
-                        Checkbox(
-                            checked = rememberMe,
-                            onCheckedChange = { rememberMe = it }
+                        // "Olvidé mi contraseña"
+                        Text(
+                            text = "Olvidé mi contraseña",
+                            color = MaterialTheme.colorScheme.primary,
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .clickable { onForgotPassword() }
                         )
-                        Text("Recordar contraseña")
-                    }
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                        state.error?.let { error ->
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(text = error, color = MaterialTheme.colorScheme.error)
+                        }
 
-                    // Botón de iniciar sesión
-                    Button(
-                        onClick = { viewModel.onEvent(LoginEvent.Login) },
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = state.mail.isNotBlank() && !state.isLoading
-                    ) {
-                        if (state.isLoading) {
-                            CircularProgressIndicator(modifier = Modifier.size(20.dp))
-                        } else {
-                            Text(stringResource(R.string.inicio_sesion))
+                        state.loginMessage?.let { message ->
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(text = message, color = MaterialTheme.colorScheme.primary)
                         }
                     }
-
-                    // "Olvidé mi contraseña" debajo del botón
-                    Text(
-                        text = "Olvidé mi contraseña",
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .clickable { onForgotPassword() }
-                    )
-
-                    state.error?.let { error ->
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(text = error, color = MaterialTheme.colorScheme.error)
-                    }
-
-                    state.loginMessage?.let { message ->
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(text = message, color = MaterialTheme.colorScheme.primary)
-                    }
                 }
-            }
 
-            // REDUCIDO el espacio inferior para que quede más abajo
-            Spacer(modifier = Modifier.height(2.dp)) // Puedes ajustar este valor
+                Spacer(modifier = Modifier.height(2.dp))
+            }
         }
     }
 }
